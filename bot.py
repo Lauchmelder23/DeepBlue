@@ -6,7 +6,12 @@ from util import logging
 
 # Bot URL https://discordapp.com/api/oauth2/authorize?client_id=657709911337074698&permissions=314432&scope=bot
 
-client = commands.Bot(command_prefix='.', case_insensitive=True)
+config = open("config.json", "r")
+json = json.load(config)
+config.close()
+
+client = commands.Bot(command_prefix=json["prefix"], case_insensitive=True)
+
 
 @client.command()
 @commands.is_owner()
@@ -75,8 +80,7 @@ async def on_ready():
 
     logging. info("Deep Blue finished loading.")
 
-with open("config.json", "r") as key_file:
-    json = json.load(key_file)
-    key = json["client_key"]
 
+
+key = json["client_key"]
 client.run(key)
