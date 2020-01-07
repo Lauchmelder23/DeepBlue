@@ -11,15 +11,29 @@ client = commands.Bot(command_prefix='.', case_insensitive=True)
 @client.command()
 @commands.is_owner()
 async def load(ctx, extension):
-    client.load_extension(f"cogs.{extension}")
-    await ctx.message.add_reaction("👍")
+    try:
+        client.load_extension(f"cogs.{extension}")
+        await ctx.message.add_reaction("👍")
+    except:
+        await ctx.message.add_reaction("👎")
 
 @client.command()
 @commands.is_owner()
 async def unload(ctx, extension):
-    client.unload_extension(f"cogs.{extension}")
-    await ctx.message.add_reaction("👍")
+    try:
+        client.unload_extension(f"cogs.{extension}")
+        await ctx.message.add_reaction("👍")
+    except:
+        await ctx.message.add_reaction("👎")
 
+@client.command()
+@commands.is_owner()
+async def reload(ctx, extension):
+    try:
+        client.reload_extension(f"cogs.{extension}")
+        await ctx.message.add_reaction("👍")
+    except:
+        await ctx.message.add_reaction("👎")
 
 
 @client.event

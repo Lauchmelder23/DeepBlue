@@ -11,11 +11,13 @@ class Steam(commands.Cog):
     @commands.cooldown(1, 2)
     async def SteamLevel(self, ctx, vanity_url):
         level = steam.get_steam_level(vanity_url)
-        percentile = round(float(steam.get_steam_level_distribution(level)), 2)
-        if level is not None:
-            await ctx.send(f"{vanity_url} is level {level}! This makes him better than {percentile}% of Steam users!")
-        else:
+        
+        if level is None:
             await ctx.send(f"There is nobody named \"{vanity_url}\" on Steam, or their profile might be pivate.")
+        else:
+            percentile = round(float(steam.get_steam_level_distribution(level)), 2)
+            await ctx.send(f"{vanity_url} is level {level}! This makes him better than {percentile}% of Steam users!")
+            
 
 
 
