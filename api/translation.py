@@ -47,5 +47,4 @@ def translate(text: str, lang: str) -> (str, str):
     if not response.ok:
         logging.error(f"Failed to contact Yandex API: {response.status_code}")
         return ""
-6
     return (response.json()["text"][0], response.json()["lang"])
