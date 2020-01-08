@@ -1,0 +1,20 @@
+[08.01.2020 02:25:57] [INFO] Starting up...
+
+[08.01.2020 02:25:57] [INFO] --- Loading configs ---
+
+[08.01.2020 02:25:57] [INFO] Trying config.json.....Success!
+[08.01.2020 02:25:57] [INFO] Finished loading configs.
+[08.01.2020 02:25:57] [INFO] Total 1, Failed 0
+
+[08.01.2020 02:26:00] [INFO] --- Loading cogs ---
+
+[08.01.2020 02:26:00] [INFO] Trying cogs.fun.autoconvert.....Success!
+[08.01.2020 02:26:00] [INFO] Trying cogs.fun.coinflip.....Success!
+[08.01.2020 02:26:00] [INFO] Trying cogs.fun.reactions.....Success!
+[08.01.2020 02:26:00] [INFO] Trying cogs.api.inspirobot.....Success!
+[08.01.2020 02:26:00] [INFO] Trying cogs.api.nasa.....Success!
+[08.01.2020 02:26:00] [INFO] Trying cogs.api.steam.....Success!
+[08.01.2020 02:26:00] [INFO] Finished loading cogs.
+[08.01.2020 02:26:00] [INFO] Total 6, Failed 0
+
+[08.01.2020 02:26:00] [INFO] Deep Blue finished loading.
