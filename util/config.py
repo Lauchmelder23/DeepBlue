@@ -1,10 +1,15 @@
+'''
+This module loads settings. Right now
+it can only hold one config file at a time
+'''
+
 import json
 from util import logging
 
 filepath = ""
 settings = {}
 
-def load(file):
+def load(file : str) -> bool:
     global settings
     filepath = file
     try:

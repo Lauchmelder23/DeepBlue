@@ -1,3 +1,8 @@
+'''
+Listens for certain keywords in messages and
+then provides conversion charts that might be
+useful.
+'''
 import discord
 from discord.ext import commands
 from util import logging, checking, config
@@ -5,7 +10,7 @@ import re
 
 class AutoConvert(commands.Cog):
 
-    def __init__(self, client):
+    def __init__(self, client: discord.Client):
         self.client = client
         self.currencies = ['€', '$', '£']
         self.currency_conversion = {
@@ -33,7 +38,7 @@ class AutoConvert(commands.Cog):
 
         return prices
 
-    def convert_currency(self, _from, to, value):
+    def convert_currency(self, _from: str, to: str, value: float) -> float:
         if _from == '€':
             conversion_rate = self.currency_conversion[_from + to]
         elif to == '€':
@@ -44,7 +49,7 @@ class AutoConvert(commands.Cog):
         return round(value * conversion_rate, 2)
                 
     @commands.Cog.listener()
-    async def on_message(self, message):
+    async def on_message(self, message: discord.Message):
         if message.author.bot:
             return
 
@@ -63,13 +68,9 @@ class AutoConvert(commands.Cog):
                     currency_string += f"{self.convert_currency(element[1], currency, element[0])}{currency}, "
                 embed.add_field(name=str(element[0])+element[1], value=currency_string[:-2])
 
-        
-
         if not empty:
             await message.channel.send(embed=embed)
 
 
-
-
-def setup(client):
+def setup(client: discord.Client):
     client.add_cog(AutoConvert(client))

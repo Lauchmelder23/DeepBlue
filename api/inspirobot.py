@@ -1,3 +1,8 @@
+'''
+A module that sits between the API and the cog
+and provides functions for easy communication
+with the inspirobot API
+'''
 import requests
 from util import logging
 

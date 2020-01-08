@@ -6,6 +6,7 @@ from util import logging, config
 
 # Bot URL https://discordapp.com/api/oauth2/authorize?client_id=657709911337074698&permissions=314432&scope=bot
 
+# The config must be loaded before everything else
 total = 0
 failed = 0
 
@@ -19,13 +20,12 @@ logging.info("Finished loading configs.")
 logging.info(f"Total {total}, Failed {failed}\n")
 
 
-
 client = commands.Bot(command_prefix=config.settings["prefix"], case_insensitive=True)
 
 
 @client.command()
 @commands.is_owner()
-async def load(ctx, extension):
+async def load(ctx : commands.Context, extension : str):
     try:
         client.load_extension(f"cogs.{extension}")
         await ctx.message.add_reaction("👍")
@@ -34,7 +34,7 @@ async def load(ctx, extension):
 
 @client.command()
 @commands.is_owner()
-async def unload(ctx, extension):
+async def unload(ctx : commands.Context, extension : str):
     try:
         client.unload_extension(f"cogs.{extension}")
         await ctx.message.add_reaction("👍")
@@ -43,7 +43,7 @@ async def unload(ctx, extension):
 
 @client.command()
 @commands.is_owner()
-async def reload(ctx, extension):
+async def reload(ctx : commands.Context, extension : str):
     try:
         client.reload_extension(f"cogs.{extension}")
         await ctx.message.add_reaction("👍")
@@ -53,6 +53,7 @@ async def reload(ctx, extension):
 
 @client.event
 async def on_ready():
+    # Try to load cogs
     logging.info("--- Loading cogs ---\n")
     
     total = 0
