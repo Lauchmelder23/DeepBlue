@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from util import logging, checking
+from util import logging, checking, config
 import re
 
 class AutoConvert(commands.Cog):
@@ -51,7 +51,7 @@ class AutoConvert(commands.Cog):
         empty = True
 
         currencies = self.contains_currency(message)
-        embed = discord.Embed(title="Here are some useful conversions:", color=0x111387)
+        embed = discord.Embed(title="Here are some useful conversions:", color=int(config.settings["color"], 16))
 
         if len(currencies) != 0:
             empty = False

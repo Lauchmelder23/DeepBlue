@@ -2,6 +2,7 @@ import discord
 
 from discord.ext import commands
 from api import inspirobot
+from util import config
 
 class Inspirobot(commands.Cog):
 
@@ -15,7 +16,7 @@ class Inspirobot(commands.Cog):
         if image is None:
             await ctx.message.add_reaction("⚠️")
         else:
-            embed = discord.Embed(title="InspiroBot", color=0x111387)
+            embed = discord.Embed(title="InspiroBot", color=int(config.settings["color"], 16))
             embed.set_image(url=image)
             await ctx.send(embed=embed)
 

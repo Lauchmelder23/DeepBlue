@@ -2,15 +2,25 @@ import discord
 import os
 import json
 from discord.ext import commands
-from util import logging
+from util import logging, config
 
 # Bot URL https://discordapp.com/api/oauth2/authorize?client_id=657709911337074698&permissions=314432&scope=bot
 
-config = open("config.json", "r")
-json = json.load(config)
-config.close()
+total = 0
+failed = 0
 
-client = commands.Bot(command_prefix=json["prefix"], case_insensitive=True)
+logging.info("Starting up...\n")
+logging.info("--- Loading configs ---\n")
+if not config.load("config.json"):
+    failed += 1
+total += 1
+
+logging.info("Finished loading configs.")
+logging.info(f"Total {total}, Failed {failed}\n")
+
+
+
+client = commands.Bot(command_prefix=config.settings["prefix"], case_insensitive=True)
 
 
 @client.command()
@@ -43,8 +53,8 @@ async def reload(ctx, extension):
 
 @client.event
 async def on_ready():
-    logging.info("Starting up...\n")
-    logging.info("Trying to load cogs...\n")
+    logging.info("--- Loading cogs ---\n")
+    
     total = 0
     failed = 0
     # Load all cogs on startup
@@ -57,8 +67,9 @@ async def on_ready():
             try:
                 client.load_extension(cog)
                 logging.info(f"Trying {cog}.....Success!")
-            except:
-                logging.error(f"Trying {cog}.....Failed!")
+            except Exception as e:
+                logging.info(f"Trying {cog}.....Failed!")
+                logging.error(str(e))
                 failed += 1
 
 
@@ -71,8 +82,9 @@ async def on_ready():
             try:
                 client.load_extension(cog)
                 logging.info(f"Trying {cog}.....Success!")
-            except:
-                logging.error(f"Trying {cog}.....Failed!")
+            except Exception as e:
+                logging.info(f"Trying {cog}.....Failed!")
+                logging.error(str(e))
                 failed += 1
 
     logging.info("Finished loading cogs.")
@@ -82,5 +94,5 @@ async def on_ready():
 
 
 
-key = json["client_key"]
+key = config.settings["client_key"]
 client.run(key)
