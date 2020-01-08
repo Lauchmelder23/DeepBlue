@@ -20,7 +20,29 @@ class Help(commands.MinimalHelpCommand):
         await self.context.send(embed=embed.make_error_embed("Command not found"))
 
     async def send_group_help(self, group):
-        await self.context.send(embed=embed.make_error_embed("Command not found"))
+        try:
+            subcmds = ""
+            if group.commands != []:
+                for command in group.commands:
+                    subcmds += "`" + command.name + "`, "
+                subcmds = subcmds[:-2]
+            else:
+                subcmds = "`None`"
+
+            alias = ""
+            if group.aliases != []:
+                for i in range(len(group.aliases)):
+                    if i == len(group.aliases) - 1:
+                        alias = alias + '`' + group.aliases[i] + '`'
+                    else:
+                        alias = alias + '`' + group.aliases[i] + '`' + ', '
+            else:
+                alias = "`None`"
+
+            await self.context.send(embed=embed.make_embed_fields_ninl(group.name, group.description, ("Usage", f"`{config.settings['prefix']}{group.usage}`"), ("Aliases", alias), ("Subcommands", subcmds)))
+        except Exception as e:
+            logging.error(str(e))
+            await self.context.send(embed=embed.make_error_embed("Command not found"))
 
     async def send_command_help(self, command):
         try:
@@ -34,7 +56,10 @@ class Help(commands.MinimalHelpCommand):
             else:
                 alias = "`None`"
             
-            await self.context.send(embed=embed.make_embed_fields_ninl(command.name, command.description, ("Usage", f"`{config.settings['prefix']}{command.usage}`"), ("Aliases", alias)))
+            command_name = command.name
+            if command.parent != None:
+                command_name += f" ({command.parent})"
+            await self.context.send(embed=embed.make_embed_fields_ninl(command_name, command.description, ("Usage", f"`{config.settings['prefix']}{command.usage}`"), ("Aliases", alias)))
         except Exception as e:
             logging.error(str(e))
             await self.context.send(embed=embed.make_error_embed("Command not found"))

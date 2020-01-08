@@ -20,9 +20,22 @@ def make_embed_fields(title: str, desc: str, *fields: tuple) -> discord.Embed:
         embed.add_field(name=name, value=value)
     return embed
 
-    
-def make_embed_fields_ninl(title: str, desc: str, *fields: tuple) -> discord.Embed:
-    embed = discord.Embed(title=title, description=desc, colour=int(config.settings["color"], 16), inline=False)
+def make_embed_fields_footer(title: str, desc: str, footer: str, *fields: tuple) -> discord.Embed:
+    embed = discord.Embed(title=title, description=desc, colour=int(config.settings["color"], 16))
+    embed.set_footer(text=footer)
     for name, value in fields:
         embed.add_field(name=name, value=value)
     return embed
+
+def make_embed_fields_ninl(title: str, desc: str, *fields: tuple) -> discord.Embed:
+    embed = discord.Embed(title=title, description=desc, colour=int(config.settings["color"], 16), inline=False)
+    for name, value in fields:
+        embed.add_field(name=name, value=value, inline=False)
+    return embed
+
+def make_embed_image(title: str, path: str) -> (discord.Embed, discord.File):
+    embed = discord.Embed(title=title, colour=int(config.settings["color"], 16))
+    attachment = discord.File(path, filename="image.png")
+    embed.set_image(url='attachment://image.png')
+
+    return (embed, attachment)
