@@ -15,12 +15,31 @@ def name_to_ISO(name: str) -> str:
     alpha = ""
     for language in langs:
         if language.name.lower() == name.lower():
-            alpha = language.alpha_2
-            break
+            try:
+                alpha = language.alpha_2
+                break
+            except:
+                logging.warning(f"Tried to get alpha2 code of unknown language {language}")
 
     return alpha
 
-def translate(text: str, lang: str) -> str:
+def ISO_to_name(ISO: str) -> str:
+    name = ""
+    for language in langs:
+        try:
+            if language.alpha_2.lower() == ISO.lower():
+                try:
+                    name = language.name
+                    break
+                except:
+                    logging.warning(f"Tried to get name of unknown language code {ISO}")
+        except:
+            # i dont care tbh
+            pass
+
+    return name
+
+def translate(text: str, lang: str) -> (str, str):
     url_encoded_text = urllib.parse.quote(text)
     url = f"https://translate.yandex.net/api/v1.5/tr.json/translate?key={api_key}&text={url_encoded_text}&lang={lang}"
 
@@ -29,4 +48,5 @@ def translate(text: str, lang: str) -> str:
         logging.error(f"Failed to contact Yandex API: {response.status_code}")
         return ""
 
-    return response.json()["text"][0]
+    print(response.json())
+    return (response.json()["text"][0], response.json()["lang"])
