@@ -9,7 +9,7 @@ class Carbon(commands.Cog):
         self.client = client
 
     @commands.group(name="carbon", usage="carbon [subcommand]", description="Can accumulate data about carbon levels in the UK")
-    @commands.cooldown(1, 30)
+    @commands.cooldown(1, 5)
     async def carbon(self, ctx):
         pass
 
@@ -27,6 +27,7 @@ class Carbon(commands.Cog):
             await ctx.send(embed=embed.make_embed_fields_footer("Carbon intensity in the UK", f"The carbon intensity for that date is considered **{data[3]}**.", f"{data[0]} | All values in gCO2/kWh", ("Measured", data[2]), ("Predicted", data[1])))
 
     @carbon.command(name="during", usage="carbon during <Start> <Stop>", description="Creates a diagram about carbon levels in the given time period (YYYY-MM-DD)")
+    @commands.cooldown(1, 25)
     async def during(self, ctx: discord.Client, start: str, stop: str):
         path = carbon.level_from_to(start, stop)
         if path == "":
