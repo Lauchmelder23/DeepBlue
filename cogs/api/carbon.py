@@ -9,6 +9,7 @@ class Carbon(commands.Cog):
         self.client = client
 
     @commands.group(name="carbon", usage="carbon [subcommand]", description="Can accumulate data about carbon levels in the UK")
+    @commands.cooldown(1, 30)
     async def carbon(self, ctx):
         pass
 
