@@ -19,6 +19,9 @@ class Translation(commands.Cog):
             return
         
         response = translation.translate(text, code)
+        if len(response) == 0:
+            await ctx.send(embed=embed.make_error_embed(f"The translation API doesn't support **{language}**."))
+            return
         translated = response[0]
         direction = response[1].split("-")
         _from = translation.ISO_to_name(direction[0])

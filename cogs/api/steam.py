@@ -11,7 +11,7 @@ class Steam(commands.Cog):
     def __init__(self, client: discord.Client):
         self.client = client
 
-    @commands.command(name="SteamLevel", description="Finds the steam level of a user", usage="SteamLevel <Vanity URL>",  aliases=["level"])
+    @commands.command(name="steamlevel", description="Finds the steam level of a user", usage="steamlevel <Vanity URL>",  aliases=["level"])
     @commands.cooldown(1, 2)
     async def SteamLevel(self, ctx: commands.Context, vanity_url: str):
         level = steam.get_steam_level(vanity_url)

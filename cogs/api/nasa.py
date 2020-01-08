@@ -12,7 +12,7 @@ class Nasa(commands.Cog):
     def __init__(self, client: discord.Client):
         self.client = client
 
-    @commands.command(name="APOD", description="Posts NASA's picture of the day.")
+    @commands.command(name="apod", description="Posts NASA's picture of the day.", usage="apod")
     @commands.cooldown(1, 30)
     async def apod(self, ctx: commands.Context):
         url = nasa.image_of_the_day()

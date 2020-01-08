@@ -23,7 +23,7 @@ logging.info(f"Total {total}, Failed {failed}\n")
 client = commands.Bot(command_prefix=config.settings["prefix"], case_insensitive=True)
 
 
-@client.command()
+@client.command(name="load", description="Loads a cog", usage="load <Cog>")
 @commands.is_owner()
 async def load(ctx : commands.Context, extension : str):
     try:
@@ -32,7 +32,7 @@ async def load(ctx : commands.Context, extension : str):
     except:
         await ctx.message.add_reaction("👎")
 
-@client.command()
+@client.command(name="unload", description="Unoads a cog", usage="unload <Cog>")
 @commands.is_owner()
 async def unload(ctx : commands.Context, extension : str):
     try:
@@ -41,7 +41,7 @@ async def unload(ctx : commands.Context, extension : str):
     except:
         await ctx.message.add_reaction("👎")
 
-@client.command()
+@client.command(name="reload", description="Reoads a cog", usage="reload <Cog>")
 @commands.is_owner()
 async def reload(ctx : commands.Context, extension : str):
     try:
@@ -59,6 +59,20 @@ async def on_ready():
     total = 0
     failed = 0
     # Load all cogs on startup
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
+            total += 1
+            cog = f"cogs.{filename[:-3]}"
+
+            try:
+                client.load_extension(cog)
+                logging.info(f"Trying {cog}.....Success!")
+            except Exception as e:
+                logging.info(f"Trying {cog}.....Failed!")
+                logging.error(str(e))
+                failed += 1
+
+
     # Load "fun" cogs
     for filename in os.listdir("./cogs/fun"):
         if filename.endswith(".py"):
