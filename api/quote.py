@@ -3,7 +3,7 @@ import random
 from util import logging
 
 def fetch_quote() -> tuple:
-    url = "https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en"
+    url = "https://favqs.com/api/qotd"
     response = requests.get(url)
 
     if not response.ok:
@@ -11,4 +11,4 @@ def fetch_quote() -> tuple:
         return ()
 
     data = response.json()
-    return (data["quoteText"], data["quoteAuthor"])
+    return (data["quote"]["body"], data["quote"]["author"])
