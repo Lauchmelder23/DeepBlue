@@ -4,6 +4,7 @@ import asyncio
 from discord.ext import commands
 from datetime import datetime, timedelta
 from random import randrange
+from util import logging
 
 def ceil_dt(dt, delta):
     return dt + (datetime.min - dt) % delta
@@ -40,6 +41,9 @@ class Schedule(commands.Cog):
             seconds = (date - datetime.now()).seconds
             await self.call_event(seconds, ' '.join(name), ctx.message.author, ctx.message.channel)
             self.threads += 1
+            logging.info(f"Scheduled new event in {seconds} seconds. Current events: {self.therads}")
+        else:
+            logging.warning("Schedule: Event limit reached. Async function was not called.")
 
 
 
