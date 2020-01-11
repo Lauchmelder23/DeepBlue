@@ -29,9 +29,9 @@ class Reactions(commands.Cog):
             await message.add_reaction("🇨🇳")
 
         if "america" in message.content.lower() or " usa" in message.content.lower():
-            await message.add_reaction("🇬")
-            await message.add_reaction("🇦")
-            await message.add_reaction("🇾")
+            await message.add_reaction("🇺🇸")
+            await message.add_reaction("🔫")
+            await message.add_reaction("🦅")
 
 
         if "extremejoy" in message.content.lower():
