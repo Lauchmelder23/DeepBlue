@@ -14,7 +14,7 @@ class Inspirobot(commands.Cog):
     def __init__(self, client : discord.Client):
         self.client = client
 
-    @commands.command(name="inspirobot", description="Sends a randomly generated inspirational quote", usage="inspirobot", aliases=["inspiration", "inspiro"])
+    @commands.command(name="inspirobot", description="Sends a randomly generated inspirational quote", usage="inspirobot", aliases=["inspiration", "inspiro", "insp"])
     @commands.cooldown(1, 5)
     async def inspirobot(self, ctx : commands.Context):
         image = inspirobot.get_inspirational_quote()

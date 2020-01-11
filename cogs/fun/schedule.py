@@ -35,7 +35,7 @@ class Schedule(commands.Cog):
     @commands.cooldown(1, 3)
     async def schedule(self, ctx: commands.Context, *name: str):
         date = ceil_dt(random_date(datetime.now(), datetime.now() + timedelta(days=7)), timedelta(minutes=15))
-        await ctx.send(f"I scheduled \"{' '.join(name)}\" for **{date.strftime('%d.%m.%Y %H:%M GMT')}**")
+        await ctx.send(f"I scheduled \"{' '.join(name)}\" for **{date.strftime('%d.%m.%Y %H:%M CET')}**")
 
         if self.threads <= self.THREAD_LIMIT:
             seconds = (date - datetime.now()).seconds
