@@ -1,4 +1,6 @@
 import discord
+import time
+import asyncio
 from discord.ext import commands
 from datetime import datetime, timedelta
 from random import randrange
@@ -16,16 +18,30 @@ def random_date(start, end):
     random_second = randrange(int_delta)
     return start + timedelta(seconds=random_second)
 
-
 class Schedule(commands.Cog):
 
     def __init__(self, client: discord.Client):
         self.client = client
+        self.threads = 0
+        self.THREAD_LIMIT = 20
+
+    async def call_event(self, sleep_time: int, name: str, user: discord.User, channel: discord.TextChannel):
+        await asyncio.sleep(sleep_time)
+        await channel.send(f"{user.mention} Your event \"{name}\" starts now!")
+        self.threads -= 1
 
     @commands.command(name="schedule", description="Schedules an event", usage="schedule <name>", aliases=["s"])
     @commands.cooldown(1, 3)
     async def schedule(self, ctx: commands.Context, *name: str):
-        await ctx.send(f"I scheduled \"{' '.join(name)}\" for **{ceil_dt(random_date(datetime.now(), datetime.now() + timedelta(days=7)), timedelta(minutes=15)).strftime('%d.%m.%Y %H:%M GMT')}**")
+        date = ceil_dt(random_date(datetime.now(), datetime.now() + timedelta(days=7)), timedelta(minutes=15))
+        await ctx.send(f"I scheduled \"{' '.join(name)}\" for **{date.strftime('%d.%m.%Y %H:%M GMT')}**")
+
+        if self.threads <= self.THREAD_LIMIT:
+            seconds = (date - datetime.now()).seconds
+            await self.call_event(seconds, ' '.join(name), ctx.message.author, ctx.message.channel)
+            self.threads += 1
+
+
 
 def setup(client: discord.Client):
     client.add_cog(Schedule(client))
