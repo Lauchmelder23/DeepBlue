@@ -72,6 +72,7 @@ class Help(commands.MinimalHelpCommand):
 
         for cog, cog_commands in mapping.items():
             cmds = cmds + cog_commands
+            cog = cog # Just so that the warning goes away
 
         newCmds = []
         for item in cmds:
