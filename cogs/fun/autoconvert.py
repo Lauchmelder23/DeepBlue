@@ -65,8 +65,8 @@ class AutoConvert(commands.Cog):
                 for currency in self.currencies:
                     if currency == element[1]:
                         continue
-                    currency_string += f"{self.convert_currency(element[1], currency, element[0])}{currency}, "
-                embed.add_field(name=str(element[0])+element[1], value=currency_string[:-2])
+                    currency_string += f"{currency}{self.convert_currency(element[1], currency, element[0])}, "
+                embed.add_field(name=element[1]+str(element[0]), value=currency_string[:-2])
 
         if not empty:
             await message.channel.send(embed=embed)
