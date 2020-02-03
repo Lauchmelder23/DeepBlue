@@ -75,6 +75,7 @@ def level_from_to(start: str, stop: str) -> str:
     plt.ylabel("Carbon Intensity [gCO2/kWh]")
     plt.xticks(rotation=45)
     plt.gcf().subplots_adjust(bottom=0.2)
+    plt.grid(b=True)
     plt.savefig("plot.png")
     plt.clf()
     return "plot.png"
