@@ -13,9 +13,8 @@ class WolframAlpha(commands.Cog):
         self.session.terminate()
 
     @commands.command(name="WolframLanguage", description="Evaluates WolframLanguage expressions (Not to be confused with WolframAlpha!)", usage="WolframLanguage <expression>", aliases=["wl"])
-    async def WolframLanguage(self, ctx, *expr):
+    async def WolframLanguage(self, ctx, *, expr):
         msg = await ctx.send(embed=embed.make_embed("WolframLanguage", "Thinking..."))
-        expr = " ".join(expr)
         evaluate = self.session.evaluate(expr)
 
         self.session.evaluate(wl.Export("eval.png", evaluate, "PNG"))
