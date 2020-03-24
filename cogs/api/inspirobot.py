@@ -25,5 +25,11 @@ class Inspirobot(commands.Cog):
             embed.set_image(url=image)
             await ctx.send(embed=embed)
 
+    @commands.command(name="test", dscription="Who cares tbh")
+    @commands.cooldown(1, 3)
+    async def test(self, ctx):
+        await self.client.get_channel(621378664977793024).send("Test")
+        await ctx.send(self.client.name)
+
 def setup(client : discord.Client):
     client.add_cog(Inspirobot(client))
