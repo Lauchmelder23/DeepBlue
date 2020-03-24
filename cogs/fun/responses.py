@@ -16,6 +16,7 @@ class Responses(commands.Cog):
             await message.channel.send(f"Stop pinging us {message.author.mention} <:pinged:451198700832817202>")
             return
 
+        """
         if message.author.id == 478006431589728259:
             if message.content == "<@&380535423233032193> NUMBERS REEEEEEEE":
                 await message.channel.send(f"<@&380535423233032193> {message.author.mention} REEEEEEEE")
@@ -25,6 +26,7 @@ class Responses(commands.Cog):
 
             if message.content == "<@&380535423233032193> is NOT for numbers":
                 await message.channel.send(f"<@&380535423233032193> ***IS*** for numbers")
-                
+        """
+              
 def setup(client):
     client.add_cog(Responses(client))
